@@ -4,8 +4,9 @@ const tabs = document.querySelectorAll(".info-header-tab");
 const tabContent = document.querySelectorAll(".info-tabcontent");
 
 const hideTabContent = () => {
-  tabContent.forEach((content) => {
-    if (!tabContent[0]) {
+  tabContent.forEach((content, index) => {
+    console.log(tabContent[0]);
+    if (index != 0) {
       content.classList.remove("show");
       content.classList.add("hide");
     }
