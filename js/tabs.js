@@ -1,4 +1,5 @@
 "use strict";
+// tabs
 const tabPanel = document.querySelector(".info-header");
 const tabs = document.querySelectorAll(".info-header-tab");
 const tabContent = document.querySelectorAll(".info-tabcontent");
@@ -28,3 +29,5 @@ tabPanel.addEventListener("click", (e) => {
     });
   }
 });
+
+// timer
