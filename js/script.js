@@ -68,3 +68,34 @@ const setCLock = (id, endtime) => {
   updateCLock();
 };
 setCLock("timer", deadline);
+
+// modal
+
+let modalBtn = document.querySelector(".more");
+let modal = document.querySelector(".overlay");
+let close = document.querySelector(".popup-close");
+
+modalBtn.addEventListener("click", (e) => {
+  modal.style.display = "block";
+  e.target.classList.add("more-splash");
+  document.body.style.overflow = "hidden";
+});
+
+modal.addEventListener("click", (e) => {
+  if (
+    !e.target.closest(".popup") ||
+    e.target.classList.contains("popup-close")
+  ) {
+    modal.style.display = "none";
+    modalBtn.classList.remove("more-splash");
+    document.body.style.overflow = "";
+  }
+});
+
+document.addEventListener("keyup", (event) => {
+  if (event.key == "Escape" && modalBtn.classList.contains("more-splash")) {
+    modal.style.display = "none";
+    modalBtn.classList.remove("more-splash");
+    document.body.style.overflow = "";
+  }
+});
