@@ -31,40 +31,48 @@ tabPanel.addEventListener("click", (e) => {
 });
 
 // timer
+let hours = timer.querySelector(".hours");
+let minutes = timer.querySelector(".minutes");
+let seconds = timer.querySelector(".seconds");
 
-let deadline = "2023-03-2";
-
+let timeInterval;
 const getTimeRemaining = (endtime) => {
-  let t = Date.parse(endtime) - Date.parse(new Date());
-  let seconds = Math.floor((t / 1000) % 60);
-  let minutes = Math.floor((t / 1000 / 60) % 60);
-  let hours = Math.floor((t / (1000 * 60 * 60)) % 60);
+  let timeRemaining = Date.parse(endtime) - Date.parse(new Date());
+  let seconds = Math.floor((timeRemaining / 1000) % 60);
+  let minutes = Math.floor((timeRemaining / 1000 / 60) % 60);
+  let hours = Math.floor((timeRemaining / (1000 * 60 * 60)) % 60);
 
   return {
-    total: t,
-    hours: hours,
-    minutes: minutes,
-    seconds: seconds,
+    timeRemaining,
+    hours,
+    minutes,
+    seconds,
   };
 };
 
 const setCLock = (id, endtime) => {
   let timer = document.getElementById(id);
-  let hours = timer.querySelector(".hours");
-  let minutes = timer.querySelector(".minutes");
-  let seconds = timer.querySelector(".seconds");
-  let timeInterval = setInterval(updateCLock, 1000);
-
   function updateCLock() {
-    let t = getTimeRemaining(endtime);
-    hours.textContent = t.hours;
-    minutes.textContent = t.minutes;
-    seconds.textContent = t.seconds;
+    let getTime = getTimeRemaining(endtime);
+    const addZero = (elem) => {
+      if (String(elem).length === 1) {
+        return "0" + elem;
+      } else {
+        return String(elem);
+      }
+    };
+    hours.textContent = addZero(getTime.hours);
+    minutes.textContent = addZero(getTime.minutes);
+    seconds.textContent = addZero(getTime.seconds);
 
-    if (t.total <= 0) {
+    if (getTime.timeRemaining <= 0) {
       clearInterval(timeInterval);
+      hours.textContent = addZero(0);
+      minutes.textContent = addZero(0);
+      seconds.textContent = addZero(0);
     }
   }
+  timeInterval = setInterval(updateCLock, 1000);
   updateCLock();
 };
-setCLock("timer", deadline);
+setCLock("timer", "2023-03-5");
